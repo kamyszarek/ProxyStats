@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Angular App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <script src="arka-routes.js"></script>
+    <script src="proxy/proxy-controller.js"></script>
+    <script src="wizard/wizard-controller.js"></script>
+</head>
+<body ng-controller="ProxyController">
+
+<div class="container">
+    <div class="menu">
+        <ul>
+            <li><button ng-click="changeTab('homepage')">Homepage</button></li>
+            <li><button ng-click="changeTab('wizard')">Wizard</button></li>
+            <li><button ng-click="changeTab('proxy')">Manage Proxy</button></li>
+        </ul>
+    </div>
+
+    <div class="content" ui-view></div>
+</div>
+
+</body>
+</html>
