@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/proxy")
@@ -79,5 +80,11 @@ public class ProxyController {
             e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
+    }
+
+    @GetMapping("/random-number")
+    public int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(10) + 1; // Losowa liczba od 1 do 10
     }
 }

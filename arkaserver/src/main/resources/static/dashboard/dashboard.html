@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div ng-controller="DashboardController as vm"
+     style="height: 200px; width:400px">
+    <canvas id="randomNumberChart" width="400" height="200"></canvas>
+    <button ng-click="vm.generateNewData()">Generate New Data</button>
+
+</div>
+
+</body>
+</html>
