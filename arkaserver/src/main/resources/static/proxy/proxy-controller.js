@@ -1,61 +1,44 @@
-//var app = angular.module('myApp', []);
-
 angular.module('myApp').controller('ProxyController', function($scope, $http, $state) {
-
-//     $scope.changeTab = function(tabName) {
-//            $location.path(tabName);
-////             $scope.currentTab = tabName;
-//        };
+    var $this = this;
 
     $scope.changeTab = function(tabName) {
         console.log('Changing tab to:', tabName);
         $state.go(tabName);
     };
 
+    $scope.proxyConfigData = {};
+    $this.proxiesNames = [];
 
-    $scope.createNewProxy = function() {
-        var endpoint = '/api/start';
-        var proxyPort = 5555;
-        var params = {
-            proxyPort: proxyPort
-        };
-
+    $this.showProxy = function() {
+        if (!$this.selectedProxyName) {
+            console.error('No proxyName selected.');
+            return;
+        }
         $http({
             method: 'GET',
-            url: endpoint,
-            params: params,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            url: '/api/proxy/read/' + $this.selectedProxyName
         })
         .then(function(response) {
-            console.log('Odpowiedź z serwera:', response.data);
+            $this.proxyConfigData = response.data;
         })
         .catch(function(error) {
-            console.error('Błąd podczas wysyłania żądania:', error);
+            console.error('Błąd podczas odpytywania endpointu:', error);
         });
     };
 
-    $scope.stopProxy = function () {
-        var endpoint = '/api/stop';
-        var proxyPort = 5555;
-        var params = {
-            proxyPort: proxyPort
-        };
-        $http({
-            method: 'GET',
-            url: endpoint,
-            params: params,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(function (response) {
-            console.log('Odpowiedź z serwera:', response.data);
-        })
-        .catch(function (error) {
-            console.error('Błąd podczas wysyłania żądania:', error);
-        });
+    $this.getProxiesList = function() {
+       $http({
+           method: 'GET',
+           url: '/api/proxy/proxies-list'
+       })
+       .then(function(response) {
+           $this.proxiesNames = response.data.map(proxy => proxy.proxyName);
+       })
+       .catch(function(error) {
+           console.error('Error fetching proxies list:', error);
+       });
     };
+
+    $this.getProxiesList();
 
 });

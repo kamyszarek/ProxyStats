@@ -36,3 +36,25 @@ body {
   flex: 1;
   padding: 20px;
 }
+
+.arka-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.arka-row label {
+  width: 150px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.proxy-details {
+  border: 1px solid #ccc;
+  width: 500px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}

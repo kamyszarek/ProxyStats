@@ -11,7 +11,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('proxy', {
             url: '/proxy',
             templateUrl: 'proxy/proxy.html',
-            controller: 'ProxyController'
+            controller: 'ProxyController',
+            controllerAs: 'proxyCtrl'
         })
         .state('wizard', {
             url: '/wizard',
