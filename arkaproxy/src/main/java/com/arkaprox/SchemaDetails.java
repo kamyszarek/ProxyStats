@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SchemaDetails {
 
-    private static Map<String, SchemaDetails> schemaRegistry = new HashMap<>();
+    private static SchemaDetails instance;
 
     private String schemaName;
 
@@ -18,20 +18,17 @@ public class SchemaDetails {
 
     private final Map<String, List<String>> columnsInTablesMap = new HashMap<>();
 
-    private final ProxyDetails proxyDetails = new ProxyDetails();
+    private final ProxyDetails proxyDetails = ProxyDetails.getProxyDetails("aaa");
 
-    private SchemaDetails(String schemaName) {
-        this.schemaName = schemaName;
+    private SchemaDetails() {
+
     }
 
-    public static SchemaDetails getSchemaDetails(String schemaName) {
-        if (schemaRegistry.containsKey(schemaName)) {
-            return schemaRegistry.get(schemaName);
-        } else {
-            SchemaDetails newSchemaDetails = new SchemaDetails(schemaName);
-            schemaRegistry.put(schemaName, newSchemaDetails);
-            return newSchemaDetails;
+    public static synchronized SchemaDetails getInstance() {
+        if (instance == null) {
+            instance = new SchemaDetails();
         }
+        return instance;
     }
 
     public void createColumnsInTablesMap() {

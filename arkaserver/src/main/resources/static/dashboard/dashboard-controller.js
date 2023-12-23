@@ -175,9 +175,17 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
             label: 'Random Numbers',
             backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: 'rgba(75,192,192,1)',
-            borderWidth: 5,
+            borderWidth: 3,
             data: Array.from({ length: 20 }, () => 0) // Początkowo 20 elementów równych zero
-        }]
+        },
+        {
+            label: 'Random Numbers 2',
+            backgroundColor: 'rgba(255, 99, 132, 0.4)', // Kolor dla drugiej linii
+            borderColor: 'rgba(255, 99, 132, 1)', // Kolor dla drugiej linii
+            borderWidth: 3,
+            data: Array.from({ length: 20 }, () => 2) // Początkowo 20 elementów równych 2 (o 2 więcej niż pierwsza linia)
+        }
+        ]
     };
 
     // Ustawienia wykresu
@@ -198,7 +206,6 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
         }
     };
 
-    // Inicjalizacja wykresu
     var ctx = document.getElementById('randomNumberChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -206,28 +213,49 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
         options: options
     });
 
-    // Cykliczne generowanie nowych danych co sekundę
     setInterval(updateChart, 1000);
 
-    // Funkcja do generowania nowych danych i aktualizacji wykresu
-    function updateChart() {
-        fetchRandomNumber().then(function (newNumber) {
-            // Jeśli osiągnięto 20 elementów, przesuń wszystkie indeksy o 1 w dół
-            if (data.datasets[0].data.length >= 20) {
-                for (var i = 0; i < 19; i++) {
-                    data.datasets[0].data[i] = data.datasets[0].data[i + 1];
-                }
-                // Dodaj nową liczbę z backendu na końcu
-                data.datasets[0].data[19] = newNumber;
-            } else {
-                // Dodaj nową liczbę z backendu na końcu
-                data.datasets[0].data.push(newNumber);
-            }
+//    function updateChart() {
+//        fetchRandomNumber().then(function (newNumber) {
+//            if (data.datasets[0].data.length >= 20) {
+//                for (var i = 0; i < 19; i++) {
+//                    data.datasets[0].data[i] = data.datasets[0].data[i + 1];
+//                    data.datasets[1].data[i] = data.datasets[1].data[i + 1];
+//                }
+//                data.datasets[0].data[19] = newNumber;
+//                data.datasets[1].data[19] = newNumber + 2;
+//            } else {
+//                data.datasets[0].data.push(newNumber);
+//                data.datasets[1].data.push(newNumber + 2);
+//            }
+//
+//            myChart.update();
+//        });
+//    }
 
-            // Użyj metody update do płynnej aktualizacji wykresu
-            myChart.update();
-        });
-    }
+    function updateChart() {
+        fetch('/api/proxy/queries-count') // Assuming your endpoint is '/remote-queries-count'
+            .then(response => response.json())
+            .then(data => {
+                var selectCount = data.select || 0; // Assuming the key in the response is 'select'
+                var insertCount = data.insert || 0; // Assuming the key in the response is 'insert'
+
+                if (myChart.data.datasets[0].data.length >= 20) {
+                    for (var i = 0; i < 19; i++) {
+                        myChart.data.datasets[0].data[i] = myChart.data.datasets[0].data[i + 1];
+                        myChart.data.datasets[1].data[i] = myChart.data.datasets[1].data[i + 1];
+                    }
+                    myChart.data.datasets[0].data[19] = selectCount;
+                    myChart.data.datasets[1].data[19] = insertCount;
+                } else {
+                    myChart.data.datasets[0].data.push(selectCount);
+                    myChart.data.datasets[1].data.push(insertCount);
+                }
+
+                myChart.update();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
 
 
 

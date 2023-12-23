@@ -26,6 +26,51 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
         });
     };
 
+    $this.startProxy = function () {
+        var endpoint = '/api/proxy/start';
+        var proxyPort = 5555;
+        var params = {
+            proxyPort: proxyPort,
+            proxyName: $this.selectedProxyName
+        };
+        $http({
+            method: 'GET',
+            url: endpoint,
+            params: params,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (response) {
+            console.log('Odpowiedź z serwera:', response.data);
+        })
+        .catch(function (error) {
+            console.error('Błąd podczas wysyłania żądania:', error);
+        });
+    };
+
+    $this.stopProxy = function () {
+        var endpoint = '/api/proxy/stop';
+        var proxyPort = 5555;
+        var params = {
+            proxyPort: proxyPort
+        };
+        $http({
+            method: 'GET',
+            url: endpoint,
+            params: params,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (response) {
+            console.log('Odpowiedź z serwera:', response.data);
+        })
+        .catch(function (error) {
+            console.error('Błąd podczas wysyłania żądania:', error);
+        });
+    };
+
     $this.getProxiesList = function() {
        $http({
            method: 'GET',

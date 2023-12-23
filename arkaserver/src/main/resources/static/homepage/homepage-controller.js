@@ -2,7 +2,7 @@ angular.module('myApp')
     .controller('HomeController', function ($scope, $http) {
         var $this = this;
 
-        $scope.createNewProxy = function () {
+        $scope.startProxy = function () {
             var endpoint = '/api/start';
             var proxyPort = 5555;
             var params = {

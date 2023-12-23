@@ -8,14 +8,17 @@ import java.io.IOException;
 @SpringBootApplication
 public class ProxyApplication {
 
+    private static String proxyName;
+
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println("Usage: java -jar proxy.jar <proxyPort> <realDatabasePort>");
             System.exit(1);
         }
         int proxyApp = 1111;
-        int proxyPort = Integer.parseInt(args[0]);
-        int realDatabasePort = Integer.parseInt(args[1]);
+        proxyName = args[0];
+        int proxyPort = Integer.parseInt(args[1]);
+        int realDatabasePort = Integer.parseInt(args[2]);
 
         while (!isPortAvailable(proxyApp)) {
             proxyApp++;
@@ -24,7 +27,11 @@ public class ProxyApplication {
         System.out.println("Starting proxy application on port: " + proxyApp);
 
         SpringApplication.run(ProxyApplication.class, "--server.port=" + proxyApp);
-        DatabaseProxy.main(new String[]{String.valueOf(proxyPort), String.valueOf(realDatabasePort)});
+        DatabaseProxy.main(new String[]{proxyName, String.valueOf(proxyPort), String.valueOf(realDatabasePort)});
+    }
+
+    public static String getProxyName() {
+        return proxyName;
     }
 
     private static boolean isPortAvailable(int port) {

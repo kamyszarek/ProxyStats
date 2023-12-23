@@ -2,7 +2,6 @@ package com.arkaprox;
 
 import com.arkaprox.query.QueryCounter;
 import com.arkaprox.query.QueryDetails;
-import com.arkaprox.query.QueryType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,15 +12,18 @@ import java.util.Locale;
 
 public class DatabaseProxy {
 
+    private static String proxyName;
+
     public static void main(String[] args) throws IOException {
 
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println("Usage: java -jar proxy.jar <proxyPort> <realDatabasePort>");
             System.exit(1);
         }
 
-        int proxyPort = Integer.parseInt(args[0]);
-        int realDatabasePort = Integer.parseInt(args[1]);
+        proxyName = args[0];
+        int proxyPort = Integer.parseInt(args[1]);
+        int realDatabasePort = Integer.parseInt(args[2]);
 //        int proxyPort = 5433;
 //        int realDatabasePort = 5432;
 
@@ -35,7 +37,7 @@ public class DatabaseProxy {
                 Socket dbSocket = new Socket("localhost", realDatabasePort);
                 System.out.println("Connected to real database: " + dbSocket.getInetAddress());
 
-                SchemaDetails schemaDetails = SchemaDetails.getSchemaDetails("test");
+                SchemaDetails schemaDetails = SchemaDetails.getInstance();
                 schemaDetails.createColumnsInTablesMap();
 
                 Thread clientToDb = new Thread(new ProxyThread(clientSocket.getInputStream(), dbSocket.getOutputStream()));
@@ -51,7 +53,7 @@ public class DatabaseProxy {
         private final InputStream input;
         private final OutputStream output;
         private String extractedQuery;
-        QueryCounter queryCounter = new QueryCounter();
+        QueryCounter queryCounter = QueryCounter.getInstance();
 
         public ProxyThread(InputStream input, OutputStream output) {
             this.input = input;
