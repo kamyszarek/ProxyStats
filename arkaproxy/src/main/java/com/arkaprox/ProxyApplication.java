@@ -2,6 +2,7 @@ package com.arkaprox;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 
 import java.io.IOException;
 
@@ -25,6 +26,13 @@ public class ProxyApplication {
         }
 
         System.out.println("Starting proxy application on port: " + proxyApp);
+
+
+        SpringApplication application = new SpringApplication(ProxyApplication.class);
+
+        // Konfiguracja ApplicationPidFileWriter do zapisu PID do pliku
+        application.addListeners(new ApplicationPidFileWriter("proxy-application.pid"));
+
 
         SpringApplication.run(ProxyApplication.class, "--server.port=" + proxyApp);
         DatabaseProxy.main(new String[]{proxyName, String.valueOf(proxyPort), String.valueOf(realDatabasePort)});

@@ -1,6 +1,8 @@
-package com.arkaprox.proxy;
+package com.arkacommon.model;
 
 public class ProxyData {
+
+    private Boolean enable;
     private String proxyName;
     private Integer proxyPort;
     private String dbUrl;
@@ -8,6 +10,14 @@ public class ProxyData {
     private String dbSchema;
     private String dbUsername;
     private String dbPassword;
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
 
     public String getProxyName() {
         return proxyName;

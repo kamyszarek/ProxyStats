@@ -28,9 +28,7 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
 
     $this.startProxy = function () {
         var endpoint = '/api/proxy/start';
-        var proxyPort = 5555;
         var params = {
-            proxyPort: proxyPort,
             proxyName: $this.selectedProxyName
         };
         $http({
@@ -51,9 +49,8 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
 
     $this.stopProxy = function () {
         var endpoint = '/api/proxy/stop';
-        var proxyPort = 5555;
         var params = {
-            proxyPort: proxyPort
+            proxyName: $this.selectedProxyName
         };
         $http({
             method: 'GET',
