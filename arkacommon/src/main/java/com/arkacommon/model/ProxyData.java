@@ -4,8 +4,10 @@ public class ProxyData {
 
     private Boolean enable;
     private String proxyName;
+    private Integer appPort;
     private Integer proxyPort;
     private String dbUrl;
+    private String dbName;
     private Integer dbPort;
     private String dbSchema;
     private String dbUsername;
@@ -27,6 +29,14 @@ public class ProxyData {
         this.proxyName = proxyName;
     }
 
+    public Integer getAppPort() {
+        return appPort;
+    }
+
+    public void setAppPort(Integer appPort) {
+        this.appPort = appPort;
+    }
+
     public Integer getProxyPort() {
         return proxyPort;
     }
@@ -41,6 +51,14 @@ public class ProxyData {
 
     public void setDbUrl(String dbUrl) {
         this.dbUrl = dbUrl;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 
     public Integer getDbPort() {

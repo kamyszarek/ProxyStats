@@ -1,8 +1,10 @@
 package com.arkaprox;
 
+import com.arkacommon.file.FilesWriter;
+import com.arkacommon.model.ProxyData;
+import com.arkacommon.utils.ProxyConfigUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.ApplicationPidFileWriter;
 
 import java.io.IOException;
 
@@ -16,25 +18,20 @@ public class ProxyApplication {
             System.out.println("Usage: java -jar proxy.jar <proxyPort> <realDatabasePort>");
             System.exit(1);
         }
-        int proxyApp = 1111;
+        int proxyAppPort = 1111;
         proxyName = args[0];
         int proxyPort = Integer.parseInt(args[1]);
         int realDatabasePort = Integer.parseInt(args[2]);
 
-        while (!isPortAvailable(proxyApp)) {
-            proxyApp++;
+        while (!isPortAvailable(proxyAppPort)) {
+            proxyAppPort++;
         }
 
-        System.out.println("Starting proxy application on port: " + proxyApp);
-
-
-        SpringApplication application = new SpringApplication(ProxyApplication.class);
-
-        // Konfiguracja ApplicationPidFileWriter do zapisu PID do pliku
-        application.addListeners(new ApplicationPidFileWriter("proxy-application.pid"));
-
-
-        SpringApplication.run(ProxyApplication.class, "--server.port=" + proxyApp);
+        System.out.println("Starting proxy application on port: " + proxyAppPort);
+        SpringApplication.run(ProxyApplication.class, "--server.port=" + proxyAppPort);
+        ProxyData proxyData = ProxyConfigUtils.getProxyByName(proxyName);
+        proxyData.setAppPort(proxyAppPort);
+        FilesWriter.updateProxyConfig(proxyData);
         DatabaseProxy.main(new String[]{proxyName, String.valueOf(proxyPort), String.valueOf(realDatabasePort)});
     }
 

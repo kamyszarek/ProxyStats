@@ -13,15 +13,20 @@
 
 <h1>Proxy Page</h1>
 
-<select ng-model="proxyCtrl.selectedProxyName" ng-options="proxyName for proxyName in proxyCtrl.proxiesNames">
+<select ng-model="proxyCtrl.selectedProxyName" ng-options="proxyName for proxyName in proxyCtrl.proxiesNames"
+        ng-change="proxyCtrl.showProxy()">
   <option value="">Select Proxy</option>
 </select>
-<button ng-click="proxyCtrl.showProxy()">Show Proxy</button>
 
-<button ng-click="proxyCtrl.startProxy()">Start Proxy</button>
-<button ng-click="proxyCtrl.stopProxy()">Stop Proxy</button>
+<button ng-click="proxyCtrl.startProxy()" ng-disabled="proxyCtrl.proxyConfigData.enable">Start Proxy</button>
+<button ng-click="proxyCtrl.stopProxy()" ng-disabled="!proxyCtrl.proxyConfigData.enable">Stop Proxy</button>
 
-<div class="proxy-details" ng-show="proxyConfigData">
+<div class="proxy-details">
+  <div class="arka-row">
+    <label>Status:</label>
+    <span ng-class="{'green-ball': proxyCtrl.proxyConfigData.enable, 'red-ball': !proxyCtrl.proxyConfigData.enable}"></span>
+  </div>
+
   <div class="arka-row">
     <label for="proxyName">Proxy Name:</label>
     <input type="text" id="proxyName" ng-model="proxyCtrl.proxyConfigData.proxyName" readonly>
@@ -54,7 +59,7 @@
 
   <div class="arka-row">
     <label for="dbPassword">DB Password:</label>
-    <input type="text" id="dbPassword" ng-model="proxyCtrl.proxyConfigData.dbPassword" readonly>
+    <input type="password" id="dbPassword" ng-model="proxyCtrl.proxyConfigData.dbPassword" readonly>
   </div>
 </div>
 

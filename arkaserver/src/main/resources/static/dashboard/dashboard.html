@@ -5,12 +5,15 @@
     <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body ng-controller="DashboardController">
 
-<div ng-controller="DashboardController as vm"
-     style="height: 200px; width:400px">
+<div style="height: 200px; width:400px">
+    <select ng-model="dashboardCtrl.selectedProxyName" ng-options="proxyName for proxyName in dashboardCtrl.getActiveProxiesList()"
+            ng-change="dashboardCtrl.changeProxyChartOne()">
+        <option value="">Select Proxy</option>
+    </select>
     <canvas id="randomNumberChart" width="400" height="200"></canvas>
-    <button ng-click="vm.generateNewData()">Generate New Data</button>
+    <button ng-click="dashboardCtrl.generateNewData()">Generate New Data</button>
 
 </div>
 

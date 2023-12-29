@@ -3,6 +3,7 @@ package com.arkaprox.service;
 import com.arkacommon.file.FilesWriter;
 import com.arkacommon.model.ProxyData;
 import com.arkacommon.utils.ProxyConfigUtils;
+import com.arkaprox.connection.ProxyConnection;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProxyService {
 
     private final Map<String, Process> proxyProcesses = new HashMap<>();
+
+    private final ProxyConnection proxyConnection = ProxyConnection.getInstance();
 
     public void updateProxyConfig(ProxyData proxyData) throws IOException {
         FilesWriter.updateProxyConfig(proxyData);
@@ -63,6 +67,17 @@ public class ProxyService {
 
     public List<ProxyData> getMiniProxiesList() throws FileNotFoundException {
         return ProxyConfigUtils.getMiniProxiesList();
+    }
+
+    public List<String> getActiveProxiesNamesList() throws FileNotFoundException {
+        return getMiniProxiesList().stream()
+                .map(ProxyData::getProxyName)
+                .filter(this::isProxyEnabled)
+                .collect(Collectors.toList());
+    }
+
+    private Boolean isProxyEnabled(String proxyName) {
+        return ProxyConfigUtils.getProxyByName(proxyName).getEnable();
     }
 
 }

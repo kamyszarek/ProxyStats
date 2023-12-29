@@ -6,7 +6,7 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
         $state.go(tabName);
     };
 
-    $scope.proxyConfigData = {};
+    $this.proxyConfigData = {};
     $this.proxiesNames = [];
 
     $this.showProxy = function() {
@@ -40,10 +40,11 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
             }
         })
         .then(function (response) {
-            console.log('Odpowiedź z serwera:', response.data);
+            $this.proxyConfigData.enable = true;
+            console.log('Server response:', response.data);
         })
         .catch(function (error) {
-            console.error('Błąd podczas wysyłania żądania:', error);
+            console.error('Request could not be finalized: ', error);
         });
     };
 
@@ -61,10 +62,11 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
             }
         })
         .then(function (response) {
-            console.log('Odpowiedź z serwera:', response.data);
+            $this.proxyConfigData.enable = false;
+            console.log('Server response:', response.data);
         })
         .catch(function (error) {
-            console.error('Błąd podczas wysyłania żądania:', error);
+            console.error('Request could not be finalized: ', error);
         });
     };
 
