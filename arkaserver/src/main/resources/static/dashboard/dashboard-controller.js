@@ -27,20 +27,34 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
     }
 
     var data = {
-        labels: Array.from({ length: 20 }, (_, i) => i + 1),
+        labels: Array.from({ length: 21 }, (_, i) => i),
         datasets: [{
             label: 'SELECT',
             backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: 'rgba(75,192,192,1)',
             borderWidth: 3,
-            data: Array.from({ length: 20 }, () => 0)
+            data: Array.from({ length: 21 }, () => 0)
         },
         {
             label: 'INSERT',
+            backgroundColor: 'rgba(255, 206, 86, 0.4)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 3,
+            data: Array.from({ length: 21 }, () => 0)
+        },
+        {
+            label: 'UPDATE',
+            backgroundColor: 'rgba(54, 162, 235, 0.4)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 3,
+            data: Array.from({ length: 21 }, () => 0)
+        },
+        {
+            label: 'DELETE',
             backgroundColor: 'rgba(255, 99, 132, 0.4)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
-            data: Array.from({ length: 20 }, () => 0)
+            data: Array.from({ length: 21 }, () => 0)
         }
         ]
     };
@@ -48,12 +62,13 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
     var options = {
         scales: {
             x: {
+                reverse: true,
                 type: 'linear',
                 position: 'bottom'
             },
             y: {
                 beginAtZero: true,
-                max: 20,
+                max: 10,
                 stepSize: 1
             }
         },
@@ -77,19 +92,27 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
              var proxyData = responseData[proxyName];
                 var selectCount = proxyData.select || 0;
                 var insertCount = proxyData.insert || 0;
+                var updateCount = proxyData.update || 0;
+                var deleteCount = proxyData.delete || 0;
 
-                if (myChart.data.datasets[0].data.length >= 20) {
-                    for (var i = 0; i < 19; i++) {
-                        myChart.data.datasets[0].data[i] = myChart.data.datasets[0].data[i + 1];
-                        myChart.data.datasets[1].data[i] = myChart.data.datasets[1].data[i + 1];
+                if (myChart.data.datasets[0].data.length >= 21) {
+                    for (var i = 20; i > 0; i--) {
+                        myChart.data.datasets[0].data[i] = myChart.data.datasets[0].data[i - 1];
+                        myChart.data.datasets[1].data[i] = myChart.data.datasets[1].data[i - 1];
+                        myChart.data.datasets[2].data[i] = myChart.data.datasets[2].data[i - 1];
+                        myChart.data.datasets[3].data[i] = myChart.data.datasets[3].data[i - 1];
                     }
-                    myChart.data.datasets[0].data[19] = selectCount;
-                    myChart.data.datasets[1].data[19] = insertCount;
+                    myChart.data.datasets[0].data[0] = selectCount;
+                    myChart.data.datasets[1].data[0] = insertCount;
+                    myChart.data.datasets[2].data[0] = updateCount;
+                    myChart.data.datasets[3].data[0] = deleteCount;
                 } else {
                     myChart.data.datasets[0].data.push(selectCount);
                     myChart.data.datasets[1].data.push(insertCount);
+                    myChart.data.datasets[2].data.push(updateCount);
+                    myChart.data.datasets[3].data.push(deleteCount);
                 }
-
+                myChart.options.scales.y.max = Math.max(...data.datasets.map(dataset => Math.max(...dataset.data))) + 10;
                 myChart.update();
             })
             .catch(error => console.error('Error fetching data:', error));

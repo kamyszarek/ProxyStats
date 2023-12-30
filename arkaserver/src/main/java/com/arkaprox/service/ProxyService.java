@@ -5,7 +5,11 @@ import com.arkacommon.model.ProxyData;
 import com.arkacommon.utils.ProxyConfigUtils;
 import com.arkaprox.connection.ProxyConnection;
 import com.google.gson.Gson;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,6 +27,12 @@ public class ProxyService {
     private final Map<String, Process> proxyProcesses = new HashMap<>();
 
     private final ProxyConnection proxyConnection = ProxyConnection.getInstance();
+
+    private final RestTemplate restTemplate;
+
+    public ProxyService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public void updateProxyConfig(ProxyData proxyData) throws IOException {
         FilesWriter.updateProxyConfig(proxyData);
@@ -80,4 +90,26 @@ public class ProxyService {
         return ProxyConfigUtils.getProxyByName(proxyName).getEnable();
     }
 
+    public Map<String, Map<String, Long>> getQueriesNumberForAllProxies() throws FileNotFoundException {
+        List<String> activeProxiesNames = getActiveProxiesNamesList();
+        Map<String, Map<String, Long>> resultMap = new HashMap<>();
+
+        for (String proxyName : activeProxiesNames) {
+            Integer appPort = getProxyByName(proxyName).getAppPort();
+            if (appPort != null) {
+                String remoteEndpointUrl = "http://localhost:" + appPort + "/queries-count";
+
+                ResponseEntity<Map<String, Long>> responseEntity = restTemplate.exchange(
+                        remoteEndpointUrl,
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<>() {
+                        });
+
+                resultMap.put(proxyName, responseEntity.getBody());
+            }
+        }
+
+        return resultMap;
+    }
 }

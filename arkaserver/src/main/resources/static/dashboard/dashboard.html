@@ -7,7 +7,8 @@
 </head>
 <body ng-controller="DashboardController">
 
-<div style="height: 200px; width:400px">
+<div style="height: 300px; width:600px">
+    <label>Proxy Name: </label>
     <select ng-model="dashboardCtrl.selectedProxyName" ng-options="proxyName for proxyName in dashboardCtrl.getActiveProxiesList()"
             ng-change="dashboardCtrl.changeProxyChartOne()">
         <option value="">Select Proxy</option>
@@ -16,6 +17,5 @@
     <button ng-click="dashboardCtrl.generateNewData()">Generate New Data</button>
 
 </div>
-
 </body>
 </html>

@@ -1,47 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Proxy</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Proxy Page</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.3/angular.min.js"></script>
-  <script src="wizard/wizard-controller.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.25/angular-ui-router.min.js"></script>
+  <script src="arka-routes.js" type="text/javascript"></script>
+  <script src="proxy/proxy-controller.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body ng-controller="WizardController">
 
-<div class="container">
-  <h2>Create Proxy</h2>
-  <form>
-    <div class="form-group">
-      <label for="proxyName">Proxy Name:</label>
-      <input type="text" class="form-control" id="proxyName" ng-model="proxyData.proxyName" required>
-    </div>
-    <div class="form-group">
-      <label for="proxyPort">Proxy Port:</label>
-      <input type="number" class="form-control" id="proxyPort" ng-model="proxyData.proxyPort" required>
-    </div>
-    <div class="form-group">
-      <label for="dbUrl">Database URL:</label>
-      <input type="text" class="form-control" id="dbUrl" ng-model="proxyData.dbUrl" required>
-    </div>
-    <div class="form-group">
-      <label for="dbPort">Database Port:</label>
-      <input type="number" class="form-control" id="dbPort" ng-model="proxyData.dbPort" required>
-    </div>
-    <div class="form-group">
-      <label for="dbSchema">DB Schema:</label>
-      <input type="text" class="form-control" id="dbSchema" ng-model="proxyData.dbSchema" required>
-    </div>
-    <div class="form-group">
-      <label for="dbUsername">DB Username:</label>
-      <input type="text" class="form-control" id="dbUsername" ng-model="proxyData.dbUsername" required>
-    </div>
-    <div class="form-group">
-      <label for="dbPassword">DB Password:</label>
-      <input type="password" class="form-control" id="dbPassword" ng-model="proxyData.dbPassword" required>
-    </div>
-    <button type="button" class="btn btn-primary" ng-click="submitProxy()">Submit</button>
-  </form>
+<h1>Create Proxy</h1>
+
+<div class="proxy-details">
+  <div class="arka-row">
+    <label for="proxyName">Proxy Name:</label>
+    <input type="text" id="proxyName" ng-model="proxyData.proxyName" required>
+  </div>
+  <div class="arka-row">
+    <label for="proxyPort">Proxy Port:</label>
+    <input type="number" id="proxyPort" ng-model="proxyData.proxyPort" required>
+  </div>
+  <div class="arka-row">
+    <label for="dbUrl">Database URL:</label>
+    <input type="text" id="dbUrl" ng-model="proxyData.dbUrl" required>
+  </div>
+  <div class="arka-row">
+    <label for="dbPort">Database Port:</label>
+    <input type="number" id="dbPort" ng-model="proxyData.dbPort" required>
+  </div>
+  <div class="arka-row">
+    <label for="dbSchema">DB Schema:</label>
+    <input type="text" id="dbSchema" ng-model="proxyData.dbSchema" required>
+  </div>
+  <div class="arka-row">
+    <label for="dbUsername">DB Username:</label>
+    <input type="text" id="dbUsername" ng-model="proxyData.dbUsername" required>
+  </div>
+  <div class="arka-row">
+    <label for="dbPassword">DB Password:</label>
+    <input type="password" id="dbPassword" ng-model="proxyData.dbPassword" required>
+  </div>
+  <button type="button" class="btn btn-primary" ng-click="submitProxy()">Submit</button>
+
 </div>
 
 </body>

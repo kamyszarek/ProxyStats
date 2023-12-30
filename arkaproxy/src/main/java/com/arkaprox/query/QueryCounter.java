@@ -1,8 +1,5 @@
 package com.arkaprox.query;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class QueryCounter {
 
     private static QueryCounter instance;
@@ -15,8 +12,7 @@ public class QueryCounter {
     private long updateCount;
 
     private QueryCounter() {
-        Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(new ResetQueryCountsTask(), 1000, 1000);
+
     }
 
     public static synchronized QueryCounter getInstance() {
@@ -26,20 +22,13 @@ public class QueryCounter {
         return instance;
     }
 
-    private void resetQueryCounts() {
+    public void resetQueryCounts() {
         createCount = 0;
         deleteCount = 0;
         dropCount = 0;
         insertCount = 0;
         selectCount = 0;
         updateCount = 0;
-    }
-
-    private class ResetQueryCountsTask extends TimerTask {
-        @Override
-        public void run() {
-            resetQueryCounts();
-        }
     }
 
     public long getCreateCount() {

@@ -30,6 +30,9 @@ public class StatsController {
         Map<String, Long> queriesCountMap = new HashMap<>();
         queriesCountMap.put("select", queryCounter.getSelectCount());
         queriesCountMap.put("insert", queryCounter.getInsertCount());
+        queriesCountMap.put("update", queryCounter.getUpdateCount());
+        queriesCountMap.put("delete", queryCounter.getDeleteCount());
+        queryCounter.resetQueryCounts();
         return queriesCountMap;
     }
 
