@@ -28,7 +28,7 @@ public class ProxyController {
         return proxyService.getQueriesNumberForAllProxies();
     }
 
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create")
     public ResponseEntity<String> createProxyConfig(@RequestBody ProxyData proxyData) {
         try {
             proxyService.updateProxyConfig(proxyData);

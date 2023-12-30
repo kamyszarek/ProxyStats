@@ -1,8 +1,8 @@
-
 angular.module('myApp')
-    .controller('WizardController', function($scope, $http) {
+    .controller('WizardController', function($http) {
+    var $this = this;
 
-     $scope.proxyData = {
+     $this.proxyData = {
             proxyName: "",
             proxyPort: null,
             dbUrl: "",
@@ -12,14 +12,18 @@ angular.module('myApp')
             dbPassword: ""
         };
 
-        $scope.submitProxy = function() {
-            $http.post('/api/proxy/create', $scope.proxyData)
-                .then(function(response) {
-                    console.log(response.data);
-                })
-                .catch(function(error) {
-                    console.error('Error creating proxy configuration:', error);
-                });
-        };
+        $http.post('/api/proxy/create', $this.proxyData, {
+            transformResponse: [function(data) {
+                // Zwracaj tekst jako czysty tekst, nie próbuj przetwarzać go jako JSON
+                return data;
+            }]
+        })
+        .then(function(response) {
+            console.log(response.data); // Odczytaj tekst z odpowiedzi
+        })
+        .catch(function(error) {
+            console.error('Error creating proxy configuration:', error);
+        });
+
 
 });

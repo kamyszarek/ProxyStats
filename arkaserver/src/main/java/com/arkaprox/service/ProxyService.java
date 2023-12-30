@@ -35,6 +35,7 @@ public class ProxyService {
     }
 
     public void updateProxyConfig(ProxyData proxyData) throws IOException {
+        proxyData.setEnable(false);
         FilesWriter.updateProxyConfig(proxyData);
         FilesWriter.updateMiniProxiesConfig(proxyData);
     }

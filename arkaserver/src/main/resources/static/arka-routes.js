@@ -23,7 +23,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('wizard', {
             url: '/wizard',
             templateUrl: 'wizard/wizard.html',
-            controller: 'WizardController'
+            controller: 'WizardController',
+            controllerAs: 'wizardCtrl'
         });
 
         $urlRouterProvider.otherwise('/');
