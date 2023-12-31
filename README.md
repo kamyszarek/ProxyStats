@@ -2,6 +2,22 @@
 
 The application is designed for creating proxies and connecting them between the client application and the database. This allows tracking the traffic and displaying the number of queries to the database on a chart. The presented application is an MVP, currently supporting PostgreSQL, and can be extended to other types of databases in the future. Additionally, many other improvements can be added. The PostgreSQL driver is included in the provided files, but it can be replaced with another version for custom needs and compatibility with the database.
 
+# This App is built using the following technologies:
+
+- **Java 17**: The backend of the application is developed using Java, providing a robust and scalable foundation.
+
+- **Spring Boot**: The application is powered by the Spring Boot framework, simplifying the development of Java applications with convention over configuration.
+
+- **JavaScript**: JavaScript is used for client-side scripting, enhancing the interactivity and dynamic behavior of the application.
+
+- **AngularJS**: The frontend is developed using AngularJS, a JavaScript-based open-source front-end web application framework. It facilitates the development of single-page applications and helps create a seamless user experience.
+
+- **Bootstrap**: Bootstrap is employed for responsive and mobile-first front-end development. It provides a set of tools and styles for designing clean and visually appealing user interfaces.
+
+## Communication
+
+The communication between the frontend and backend is established through a RESTful API. This API ensures seamless data exchange and interaction between the different components of the application.
+
 ## Getting Started
 
 The simplest way to test the application:
