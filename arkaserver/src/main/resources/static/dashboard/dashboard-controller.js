@@ -115,7 +115,7 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
                 myChart.options.scales.y.max = Math.max(...data.datasets.map(dataset => Math.max(...dataset.data))) + 10;
                 myChart.update();
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => console.error('Error fetching proxies list. Make sure you have proxy configured and enabled. ', error));
         }
 
     $this.fetchActiveProxiesList = function() {

@@ -12,18 +12,18 @@ angular.module('myApp')
             dbPassword: ""
         };
 
-        $http.post('/api/proxy/create', $this.proxyData, {
-            transformResponse: [function(data) {
-                // Zwracaj tekst jako czysty tekst, nie próbuj przetwarzać go jako JSON
-                return data;
-            }]
-        })
-        .then(function(response) {
-            console.log(response.data); // Odczytaj tekst z odpowiedzi
-        })
-        .catch(function(error) {
-            console.error('Error creating proxy configuration:', error);
-        });
-
+        $this.submitProxy = function() {
+            $http.post('/api/proxy/create', $this.proxyData, {
+                transformResponse: [function(data) {
+                    return data;
+                }]
+            })
+            .then(function(response) {
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                console.error('Error creating proxy configuration:', error);
+            });
+        }
 
 });

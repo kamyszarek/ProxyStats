@@ -12,7 +12,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('homepage', {
             url: '/homepage',
             templateUrl: 'homepage/homepage.html',
-            controller: 'HomeController'
+            controller: 'HomeController',
+            controllerAs: 'HomeCtrl'
         })
         .state('proxy', {
             url: '/proxy',

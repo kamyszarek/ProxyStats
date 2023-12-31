@@ -1,11 +1,6 @@
 angular.module('myApp').controller('ProxyController', function($scope, $http, $state) {
     var $this = this;
 
-    $scope.changeTab = function(tabName) {
-        console.log('Changing tab to:', tabName);
-        $state.go(tabName);
-    };
-
     $this.proxyConfigData = {};
     $this.proxiesNames = [];
 
@@ -22,7 +17,7 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
             $this.proxyConfigData = response.data;
         })
         .catch(function(error) {
-            console.error('Błąd podczas odpytywania endpointu:', error);
+            console.error('An error occured during reading the proxy config:', error);
         });
     };
 
@@ -79,7 +74,7 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
            $this.proxiesNames = response.data.map(proxy => proxy.proxyName);
        })
        .catch(function(error) {
-           console.error('Error fetching proxies list:', error);
+           console.error('Error fetching proxies list. Make sure you have proxy configured.');
        });
     };
 
