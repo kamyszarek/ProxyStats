@@ -132,7 +132,6 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
        proxyChartOne = $this.selectedProxyName;
     };
 
-
     $this.fetchActiveProxiesList();
 
 });
