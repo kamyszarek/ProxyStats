@@ -16,16 +16,6 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
         $this.stopInterval();
     });
 
-    function fetchRandomNumber() {
-        return $http.get('/api/proxy/random-number')
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(function (error) {
-                console.error('Error fetching random number:', error);
-            });
-    }
-
     var data = {
         labels: Array.from({ length: 21 }, (_, i) => i),
         datasets: [{
@@ -131,19 +121,6 @@ angular.module('myApp').controller('DashboardController', function ($http, $scop
        })
        .catch(function(error) {
            console.error('Error fetching active proxies list:', error);
-       });
-    };
-
-    $this.generateNewData = function() {
-       return $http({
-           method: 'GET',
-           url: '/api/proxy/random-number'
-       })
-       .then(function(response) {
-
-       })
-       .catch(function(error) {
-           console.error('Error fetching random number:', error);
        });
     };
 

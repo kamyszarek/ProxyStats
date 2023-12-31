@@ -65,9 +65,4 @@ public class ProxyController {
         return new ResponseEntity<>(proxyService.getActiveProxiesNamesList(), HttpStatus.OK);
     }
 
-    @GetMapping("/random-number")
-    public int getRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(10) + 1; // Losowa liczba od 1 do 10
-    }
 }
