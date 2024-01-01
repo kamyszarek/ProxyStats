@@ -2,6 +2,8 @@
 
 The application is designed for creating proxies and connecting them between the client application and the database. This allows tracking the traffic and displaying the number of queries to the database on a chart. The presented application is an MVP, currently supporting PostgreSQL, and can be extended to other types of databases in the future. Additionally, many other improvements can be added. The PostgreSQL driver is included in the provided files, but it can be replaced with another version for custom needs and compatibility with the database.
 
+The application is divided into several modules. To begin using it, you need to start the "arkaserver" module. Configure your proxies there. Once you have done that and activated the proxy on the frontend, the JAR file of the "arkaproxy" module will be executed (so make sure you have built the project for the "arkaproxy" module).
+
 # This App is built using the following technologies:
 
 - **Java 17**: The backend of the application is developed using Java, providing a robust and scalable foundation.
@@ -35,7 +37,8 @@ The simplest way to test the application:
 ## Screenshots
 
 - Manage Proxy tab
-![screen1](https://github.com/kamyszarek/ProxyStats/assets/102061208/f68238d8-8713-461a-b5d6-6c336a18983b)
+![Screen1](https://github.com/kamyszarek/ProxyStats/assets/102061208/ce4c3d9b-86e2-4835-8c97-838197ecefe6)
+
 
 - Dashboard tab
 ![screen2](https://github.com/kamyszarek/ProxyStats/assets/102061208/7327bc73-49e9-4016-af87-5c1bfb030121)
