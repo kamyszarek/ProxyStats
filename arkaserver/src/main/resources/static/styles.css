@@ -79,6 +79,45 @@ body {
   text-align: center;
 }
 
+.button-start {
+  background-color: #66B626;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 5px 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #4A8020;
+    }
+}
+
+.button-stop {
+  background-color: #ECAD53;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 5px 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #B07638;
+    }
+}
+
+.button-delete {
+  background-color: #F44336;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 5px 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #D32F2F;
+    }
+}
+
 .green-ball {
     background-color: green;
     width: 20px;

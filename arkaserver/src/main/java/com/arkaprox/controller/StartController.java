@@ -19,4 +19,9 @@ public class StartController {
         return new String(bytes);
     }
 
+    @GetMapping("/is-server-alive")
+    public String isServerAlive() {
+        return "Server is alive";
+    }
+
 }

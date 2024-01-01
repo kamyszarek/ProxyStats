@@ -49,6 +49,11 @@ public class ProxyController {
         proxyService.stopProxy(proxyName);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteProxy(@RequestParam String proxyName) throws IOException {
+        proxyService.deleteProxy(proxyName);
+    }
+
 
     @GetMapping(value = "/read/{proxyName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProxyData> readProxyConfig(@PathVariable String proxyName) {

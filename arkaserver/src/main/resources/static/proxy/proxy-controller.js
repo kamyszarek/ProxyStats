@@ -5,9 +5,11 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
     $this.proxiesNames = [];
 
     $this.showProxy = function() {
-        if (!$this.selectedProxyName) {
+        if (!$this.selectedProxyName && $this.proxiesNames.length === 0) {
             console.error('No proxyName selected.');
             return;
+        } else if (!$this.selectedProxyName) {
+            $this.selectedProxyName = $this.proxiesNames[0];
         }
         $http({
             method: 'GET',
@@ -66,7 +68,7 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
     };
 
     $this.getProxiesList = function() {
-       $http({
+       return $http({
            method: 'GET',
            url: '/api/proxy/proxies-list'
        })
@@ -78,6 +80,28 @@ angular.module('myApp').controller('ProxyController', function($scope, $http, $s
        });
     };
 
-    $this.getProxiesList();
+    $this.deleteProxy = function() {
+        var endpoint = '/api/proxy/delete';
+        var params = {
+            proxyName: $this.selectedProxyName
+        };
+       $http({
+           method: 'DELETE',
+           url: endpoint,
+           params: params
+       })
+       .then(function(response) {
+           console.log('Proxy deleted successfully.');
+           $this.getProxiesList();
+           $this.proxyConfigData = {};
+       })
+       .catch(function(error) {
+           console.error('Error during deleting a proxy: ', error);
+       });
+    };
+
+    $this.getProxiesList().then(function(response) {
+        $this.showProxy();
+    });
 
 });

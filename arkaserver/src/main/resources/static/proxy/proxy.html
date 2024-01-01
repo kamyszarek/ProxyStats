@@ -18,8 +18,12 @@
   <option value="">Select Proxy</option>
 </select>
 
-<button ng-click="proxyCtrl.startProxy()" ng-disabled="proxyCtrl.proxyConfigData.enable">Start Proxy</button>
-<button ng-click="proxyCtrl.stopProxy()" ng-disabled="!proxyCtrl.proxyConfigData.enable">Stop Proxy</button>
+<button class="button-start" ng-click="proxyCtrl.startProxy()" ng-disabled="proxyCtrl.proxyConfigData.enable"
+        ng-show="proxyCtrl.selectedProxyName && !proxyCtrl.proxyConfigData.enable">Start Proxy</button>
+<button class="button-stop" ng-click="proxyCtrl.stopProxy()" ng-disabled="!proxyCtrl.proxyConfigData.enable"
+        ng-show="proxyCtrl.selectedProxyName && proxyCtrl.proxyConfigData.enable">Stop Proxy</button>
+<button class="button-delete" ng-click="proxyCtrl.deleteProxy()"
+        ng-show="proxyCtrl.selectedProxyName">Delete</button>
 
 <div class="proxy-details">
   <div class="arka-row">

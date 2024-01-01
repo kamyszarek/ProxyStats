@@ -71,6 +71,14 @@ public class ProxyService {
         }
     }
 
+    public void deleteProxy(String proxyName) throws IOException {
+        if (isProxyEnabled(proxyName)) {
+            stopProxy(proxyName);
+        }
+        FilesWriter.deleteProxyConfig(proxyName);
+        FilesWriter.deleteMiniProxyConfig(proxyName);
+    }
+
 
     public ProxyData getProxyByName(String proxyName) {
         return ProxyConfigUtils.getProxyByName(proxyName);
